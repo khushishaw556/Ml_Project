@@ -1,0 +1,37 @@
+Course,Subject,Model,R2,MAE
+BCA,Java,Linear Regression,0.6327,6.19
+BCA,Java,Random Forest,0.5519,6.7
+BCA,Operating System,Linear Regression,0.6883,6.83
+BCA,Operating System,Random Forest,0.6512,7.13
+BCA,Machine Learning,Linear Regression,0.5829,6.41
+BCA,Machine Learning,Random Forest,0.5013,7.1
+BCA,Computer Networks,Linear Regression,0.7058,5.38
+BCA,Computer Networks,Random Forest,0.6535,5.78
+BCA,HTML & CSS,Linear Regression,0.5459,8.41
+BCA,HTML & CSS,Random Forest,0.5072,8.64
+BCA,DBMS,Linear Regression,0.7296,6.19
+BCA,DBMS,Random Forest,0.6913,6.59
+BTech CSE,DSA,Linear Regression,0.6876,6.93
+BTech CSE,DSA,Random Forest,0.6499,7.28
+BTech CSE,Operating System,Linear Regression,0.6776,5.11
+BTech CSE,Operating System,Random Forest,0.6462,5.61
+BTech CSE,DBMS,Linear Regression,0.6022,8.55
+BTech CSE,DBMS,Random Forest,0.5743,8.81
+BTech CSE,Computer Networks,Linear Regression,0.6465,6.99
+BTech CSE,Computer Networks,Random Forest,0.6132,7.59
+BTech CSE,Python,Linear Regression,0.5149,7.49
+BTech CSE,Python,Random Forest,0.4778,7.69
+BTech CSE,Engineering Maths,Linear Regression,0.6636,5.39
+BTech CSE,Engineering Maths,Random Forest,0.6176,5.84
+MCA,Advanced Java,Linear Regression,0.6944,6.33
+MCA,Advanced Java,Random Forest,0.6423,6.8
+MCA,Cloud Computing,Linear Regression,0.5408,8.58
+MCA,Cloud Computing,Random Forest,0.5221,8.78
+MCA,Data Science,Linear Regression,0.6257,8.6
+MCA,Data Science,Random Forest,0.5712,9.22
+MCA,Software Engineering,Linear Regression,0.5604,6.39
+MCA,Software Engineering,Random Forest,0.5069,6.73
+MCA,Web Technologies,Linear Regression,0.5986,7.74
+MCA,Web Technologies,Random Forest,0.5546,8.04
+MCA,Algorithms,Linear Regression,0.6082,5.91
+MCA,Algorithms,Random Forest,0.5403,6.33

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyMate | Student Performance Dashboard</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- App CSS -->
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════════════════════════ -->
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <span class="brand-icon">🎓</span>
+      <span class="brand-name">StudyMate</span>
+    </div>
+    <div class="navbar-tagline">Predict &bull; Analyze &bull; Improve</div>
+    <div class="navbar-links">
+      <a href="#" class="nav-link active">Dashboard</a>
+      <a href="#study-plan-section" class="nav-link">Study Planner</a>
+      <a href="#insights-section" class="nav-link">Insights</a>
+      <a href="#resources-section" class="nav-link">Learning Resources</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO HEADER
+  ═══════════════════════════════════════════════════════ -->
+  <header class="page-header">
+    <div class="page-header-content">
+      <div>
+        <h1>Student Performance Dashboard</h1>
+        <p>Analyze your marks, compare progress, and receive a personalized 7-day study plan.</p>
+      </div>
+      <div class="header-badge">
+        <span class="pulse-dot"></span>
+        AI-Powered Analysis
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════
+       MAIN LAYOUT
+  ═══════════════════════════════════════════════════════ -->
+  <main class="main-layout">
+
+    <!-- ─── LEFT PANEL : Input Form ─── -->
+    <aside class="panel-left">
+      <div class="card form-card">
+        <div class="card-header">
+          <span class="card-icon">👤</span>
+          <span class="card-title">Student Details &amp; Marks</span>
+        </div>
+
+        <form id="analyze-form" novalidate>
+
+          <!-- Name -->
+          <div class="field-group">
+            <label for="student-name">Full Name</label>
+            <input type="text" id="student-name" placeholder="Enter your full name" autocomplete="off" />
+          </div>
+
+          <!-- Student ID -->
+          <div class="field-group">
+            <label for="student-id">Student ID</label>
+            <input type="text" id="student-id" placeholder="Enter your student ID" autocomplete="off" />
+          </div>
+
+          <!-- Course -->
+          <div class="field-group">
+            <label for="course-select">Course</label>
+            <div class="select-wrapper">
+              <select id="course-select">
+                <option value="">— Loading courses… —</option>
+              </select>
+              <span class="select-arrow">▾</span>
+            </div>
+          </div>
+
+          <!-- Subject Marks — injected by JS -->
+          <div id="marks-container">
+            <p class="muted-hint">Select a course to enter marks.</p>
+          </div>
+
+          <!-- Study Hours slider -->
+          <div class="field-group">
+            <label for="hours-slider">
+              Daily Study Hours
+              <span class="hours-badge" id="hours-display">3.0 h</span>
+            </label>
+            <input type="range" id="hours-slider" min="0.5" max="8" step="0.5" value="3" class="range-input" />
+            <div class="range-labels">
+              <span>0.5 h</span>
+              <span>8 h</span>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="btn-analyze" id="analyze-btn">
+            <span id="btn-label">✨ Analyze Performance →</span>
+            <span id="btn-spinner" class="spinner hidden"></span>
+          </button>
+
+        </form>
+      </div>
+    </aside>
+
+    <!-- ─── RIGHT PANEL : Results ─── -->
+    <section class="panel-right" id="results-panel">
+
+      <!-- Empty state -->
+      <div class="empty-state" id="empty-state">
+        <div class="empty-icon">📊</div>
+        <strong>Ready to analyze performance?</strong>
+        <p>Select a course, enter your marks, and click<br /><b>Analyze Performance</b>.</p>
+        <div class="empty-features">
+          <div class="feature-chip">📈 Percentile Rank</div>
+          <div class="feature-chip">🎯 Study Plan</div>
+          <div class="feature-chip">💡 AI Insights</div>
+          <div class="feature-chip">📚 Learning Resources</div>
+        </div>
+      </div>
+
+      <!-- Results (hidden until analysis) -->
+      <div id="results-content" class="hidden">
+
+        <!-- Hero banner -->
+        <div class="hero-banner" id="hero-banner">
+          <div class="hero-left">
+            <span class="result-pill">✅ Prediction Result</span>
+            <div class="hero-greeting" id="hero-greeting">Your overall performance is</div>
+            <div class="hero-label" id="hero-label">—</div>
+            <div class="hero-stats">
+              <span>Estimated Score: <strong id="hero-score" class="accent-green">—</strong></span>
+              <span class="stat-divider">|</span>
+              <span>Better than <strong id="hero-pct" class="accent-green">—</strong> students</span>
+            </div>
+          </div>
+          <div class="hero-trophy">🏆</div>
+        </div>
+
+        <!-- Subject cards -->
+        <div class="card" id="subjects-section">
+          <div class="card-header">
+            <span class="card-icon">📈</span>
+            <span class="card-title">Subject-wise Analysis</span>
+          </div>
+          <div class="subjects-grid" id="subjects-grid">
+            <!-- injected by JS -->
+          </div>
+        </div>
+
+        <!-- Bottom row: Plan + Insights + Next Steps -->
+        <div class="bottom-grid">
+
+          <!-- Study Plan -->
+          <div class="card" id="study-plan-section">
+            <div class="card-header">
+              <span class="card-icon">🎯</span>
+              <span class="card-title">Personalized Study Plan</span>
+              <span class="badge badge-good ml-auto">7 Days</span>
+            </div>
+            <div class="plan-focus" id="plan-focus"></div>
+            <div class="plan-splits" id="plan-splits"></div>
+            <button class="btn-toggle" id="plan-toggle" onclick="togglePlan()">View Full Plan ▾</button>
+            <ol class="plan-list hidden" id="plan-list"></ol>
+          </div>
+
+          <!-- Key Insights -->
+          <div class="card" id="insights-section">
+            <div class="card-header">
+              <span class="card-icon">💡</span>
+              <span class="card-title">Key Insights</span>
+            </div>
+            <ul class="insights-list" id="insights-list"></ul>
+          </div>
+
+          <!-- Next Steps -->
+          <div class="card" id="next-steps-section">
+            <div class="card-header">
+              <span class="card-icon">🛠️</span>
+              <span class="card-title">Next Steps</span>
+            </div>
+            <ol class="next-steps-list" id="next-steps-list"></ol>
+          </div>
+
+        </div><!-- /bottom-grid -->
+
+        <!-- Learning Resources Section (Personalized based on analysis) -->
+        <div class="card resources-card" id="resources-section">
+          <div class="card-header">
+            <span class="card-icon">📚</span>
+            <div class="card-header-titles">
+              <span class="card-title">Recommended Learning Resources</span>
+              <span class="card-subtitle">Personalized video courses, documentation & practice platforms based on your performance</span>
+            </div>
+            <span class="badge badge-purple ml-auto">AI Recommended</span>
+          </div>
+          <div class="resources-container" id="resources-container">
+            <!-- Dynamically injected by JS -->
+          </div>
+        </div>
+
+      </div><!-- /results-content -->
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <span>🎓 StudyMate &copy; 2026 &mdash; AI-powered academic intelligence</span>
+    <span class="footer-tagline">Dream Big, Study Smart!</span>
+  </footer>
+
+  <!-- App JS -->
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
